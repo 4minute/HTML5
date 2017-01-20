@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Key Codes</title>
+  <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+  <script>
+	window.onload = function(){
+		function onKeyboardEvent(event){
+			switch(event.keyCode){
+				case 38:
+					console.log("up!");
+					break;
+				case 40:
+					console.log("down!");
+					break;
+				case 37:
+					console.log("Left!");
+					break;
+				case 39:
+					console.log("right!");
+					break;
+				default:
+					console.log(event.keyCode);
+			
+			}
+		}
+		window.addEventListener('keydown',onKeyboardEvent,false);
+	};
+  
+  </script>
+ </body>
+</html>

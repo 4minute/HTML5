@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>Keyboard Events</title>
+  <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+  <script>
+	window.onload = function(){
+		function onKeyboardEvent (event){
+			console.log(event.type);
+		}
+
+		window.addEventListener('keydown',onKeyboardEvent,false);
+		window.addEventListener('keyup',onKeyboardEvent,false);
+	};
+	
+  </script>
+ </body>
+</html>

@@ -2,22 +2,19 @@
 <html>
  <head>
   <meta charset="UTF-8">
+  <title>Touch Position</title>
   <link rel="stylesheet" href="style.css">
-  <title>Touch Events</title>
  </head>
  <body>
   <canvas id="canvas" width="400" height="400"></canvas>
+  <script src="utils_1.js"></script>
   <script>
 	window.onload = function(){
 		var canvas = document.getElementById('canvas');
-
-		function onTouchEvent(event){
-			console.log(event.type);
-		}
-
-		canvas.addEventListener('touchstart',onTouchEvent,false);
-		canvas.addEventListener('touchend',onTouchEvent,false);
-		canvas.addEventListener('touchmove',onTouchEvent,false);
+		touch = utils.captureTouch(canvas);
+		if(touch.isPressed){
+			console.log("x: "+touch.x+"y: "+touch.y);
+		};
 	};
   </script>
  </body>
