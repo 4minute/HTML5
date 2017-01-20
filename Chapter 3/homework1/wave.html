@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <title>Wave</title>
+ </head>
+ <body>
+  <canvas id="canvas" width="400" height="400" style="border:1px solid #c3c3c3;"></canvas>
+  <script src="utils.js"></script>
+  <script src="ball.js"></script>
+  <script>
+	var angle = 0,
+	centerY = 200,
+	centerScale = 1,
+	range = 50,
+	speed = 0.05;
+	radius = 10;
+	color="#ff0000";
+	window.onload = function(){
+		var canvas = document.getElementById('canvas'),
+		context = canvas.getContext('2d'),
+		ball = new Ball();
+		for(var num=0;num<20;num++){
+			ball_num = ball;
+			ball_num.angle = 0;
+			ball_num.color = color;
+			ball_num.radius = radius;
+			ball_num.x = canvas.width/2;
+			ball_num.y = canvas.height/2;
+		}
+	
+//		ball = new Ball();
+//		angle = 0;
+//		ball.color = color;
+//		ball.radius = radius;
+//	    ball.x = canvas.width/2;
+//	    ball.y = canvas.height/2;
+	
+	(function drawFrame(){
+		window.requestAnimationFrame(drawFrame,canvas);
+		context.clearRect(0,0,canvas.width,canvas.height);
+		for (var index = 0;index < 20 ; index++)
+		{
+			ball_num.x=10+20*index;
+			ball_num.y=centerY + Math.sin(angle-(Math.PI/10)*index)*range;
+			ball_num.draw(context);
+		}
+		angle +=speed;
+//		ball.x = 10;
+//		ball.y = centerY + Math.sin(angle)*range;
+//		angle += speed;
+//		ball.draw(context);
+	}());
+	
+	};
+  </script>
+ </body>
+</html>
