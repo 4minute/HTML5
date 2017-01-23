@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>Load Image</title>
+  <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+  <canvas id="canvas" width="400" height="400" style="border:1px solid #c3c3c3;"></canvas>
+  <script>
+	window.onload = function(){
+		var canvas = document.getElementById('canvas'),
+		context = canvas.getContext('2d'),
+		image = new Image();
+
+		image.src = "picture.jpg";
+		image.onload = function(){
+			context.drawImage(image,0,0);
+		};
+	};
+  </script>
+ </body>
+</html>

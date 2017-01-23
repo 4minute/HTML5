@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>Invert Color</title>
+  <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+  <canvas id="canvas" width="400" height="400" style="border:1px solid #c3c3c3;"></canvas>
+  <script>
+	window.onload = function(){
+		var canvas = document.getElementById('canvas'),
+		context = canvas.getContext('2d');
+		
+//	for(var i = 0; i < canvas.width; i+=10){
+	for(var i=0;i<canvas.width;i+=10){
+		for(var j =0; j < canvas.height; j+=10){
+			context.fillStyle = (i%20===0)?"#f00":((i%30===0)?"#0f0":"#00f");
+			context.fillRect(i,j,10,10);
+		}
+	}
+	
+	var imageData = context.getImageData(0,0,canvas.width,canvas.height),
+		pixels = imageData.data;
+		
+
+	for(var offset=0,len = pixels.length;offset < len;offset +=4){
+		pixels[offset] = 255 - pixels[offset];
+		pixels[offset+1] = 255 - pixels[offset+1];
+		pixels[offset+2] = 255 - pixels[offset+2];
+		
+	}
+
+	for(var offset=0,len = pixels.length;offset < len;offset+=4){
+		var r = pixels[offset],
+		g =pixels[offset+1],
+		b = pixels[offset+2],
+		y = (0.2126*r)+(0.7152*g)+(0.0722*b);
+		pixels[offset] = pixels[offset+1] = pixels[offset+2] = y;
+	}
+
+	context.putImageData(imageData,0,0);
+
+	};
+  </script>
+ </body>
+</html>

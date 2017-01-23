@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>Embed Image</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+	#picture {
+		display:none;
+	}
+  </style>
+ </head>
+ <body>
+  <canvas id="canvas" width="400" height="400" style="border:1px solid #c3c3c3;"></canvas>
+  <image id="picture" src="picture.jpg">
+  <script>
+	window.onload = function(){
+		var canvas = document.getElementById('canvas'),
+		context = canvas.getContext('2d'),
+		image = document.getElementById('picture');
+
+		context.drawImage(image,0,0);
+		
+	};
+  </script>
+ </body>
+</html>
