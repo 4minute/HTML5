@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>Homework Chapter 4</title>
+  <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+  <canvas id="canvas" width="400" height="400" style="border:1px solid #c3c3c3;"></canvas>
+  <script src="utils.js"></script>
+  <script>
+	window.onload = function(){
+		var canvas = document.getElementById('canvas'),
+		context = canvas.getContext('2d'),
+		points = [],
+		points1={x:200,y:200},
+		points2={x:points1.x+20,y:points1.y+40},
+		points3={x:points1.x+40,y:points1.y+80},
+		points4={x:points1.x+100,y:points1.y+150},
+		numPoints = 4,
+		speed = 1,
+		angle =0,
+		ctrlPoint={};
+		
+		points.push({x:points1.x,y:points1.y});
+		points.push({x:points2.x,y:points2.y});
+		points.push({x:points3.x,y:points3.y});
+		points.push({x:points4.x,y:points4.y});
+/*		context.beginPath();
+		context.moveTo(points[0].x,points[0].y);
+		for(var i=1;i<numPoints-2;i++){
+			ctrlPoint.x = (points[i].x + points[i+1].x)/2;
+		    ctrlPoint.y = (points[i].y + points[i+1].y)/2;
+		    context.quadraticCurveTo(points[i].x,points[i].y,ctrlPoint.x,ctrlPoint.y);
+		}
+		context.quadraticCurveTo(points[i].x,points[i].y,points[i+1].x,points[i+1].y);
+		context.stroke();
+		
+*/		
+
+		(function drawFrame(){
+			window.requestAnimationFrame(drawFrame,canvas);
+
+			points[0].x = 200+50*Math.sin(angle);
+			points[0].y = 200+50*Math.cos(angle);
+			points[1].x = points[0].x +19*Math.sin(angle);
+			points[1].y = points[0].y +40*Math.sin(angle);
+			points[2].x = points[0].x +20*Math.sin(angle);
+			points[2].y = points[0].y +10*Math.sin(angle);
+			points[3].x = points[0].x +90*Math.sin(angle);
+			points[3].y = points[0].y +50*Math.sin(angle);
+			context.beginPath();
+			context.moveTo(points[0].x,points[0].y);
+			context.strokeStyle="#fff";
+			context.fillStyle = 'rgba(255, 255, 255, 0.0001)'; 
+			for(var i=1;i<numPoints-2;i++){
+				context.quadraticCurveTo(points[i].x,points[i].y,points[i+1].x,points[i+1].y);
+			}
+			context.quadraticCurveTo(points[i].x,points[i].y,points[i+1].x,points[i+1].y);
+			context.stroke();
+			context.fill();
+			speed+=0.005;
+			angle-=0.005;
+		}());
+	};
+  </script>
+ </body>
+</html>
