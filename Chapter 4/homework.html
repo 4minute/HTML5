@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="style.css">
  </head>
  <body>
-  <canvas id="canvas" width="400" height="400" style="border:1px solid #c3c3c3;"></canvas>
+  <canvas id="canvas" width="800" height="800" style="border:1px solid #c3c3c3;"></canvas>
   <script src="utils.js"></script>
   <script>
 	window.onload = function(){
@@ -14,53 +14,60 @@
 		context = canvas.getContext('2d'),
 		points = [],
 		points1={x:200,y:200},
-		points2={x:points1.x+20,y:points1.y+40},
-		points3={x:points1.x+40,y:points1.y+80},
-		points4={x:points1.x+100,y:points1.y+150},
+		points2={x:points1.x+50,y:points1.y-100},
+		points3={x:points1.x+100,y:points1.y},
+		points4={x:points1.x+150,y:points1.y-100},
 		numPoints = 4,
-		speed = 1,
-		angle =0,
 		ctrlPoint={};
-		
+		angleX = 0,
+		angleY = 0,
+		range = 20,
+		centerX = 200,
+		centerY = 200,
+		xspeed = 0.07,
+		yspeed = 0.11;
+		speed = 0;
 		points.push({x:points1.x,y:points1.y});
 		points.push({x:points2.x,y:points2.y});
 		points.push({x:points3.x,y:points3.y});
 		points.push({x:points4.x,y:points4.y});
-/*		context.beginPath();
-		context.moveTo(points[0].x,points[0].y);
-		for(var i=1;i<numPoints-2;i++){
-			ctrlPoint.x = (points[i].x + points[i+1].x)/2;
-		    ctrlPoint.y = (points[i].y + points[i+1].y)/2;
-		    context.quadraticCurveTo(points[i].x,points[i].y,ctrlPoint.x,ctrlPoint.y);
-		}
-		context.quadraticCurveTo(points[i].x,points[i].y,points[i+1].x,points[i+1].y);
-		context.stroke();
 		
-*/		
-
 		(function drawFrame(){
 			window.requestAnimationFrame(drawFrame,canvas);
+        // 	context.clearRect(0,0,canvas.width,canvas.height);
+			points[0].x = centerX + Math.sin(angleX) * range;
+			points[0].y = centerY + Math.sin(angleY) * range;	
+			points[1].x = centerX + Math.sin(angleX+0.5) * range + 50;
+			points[1].y = centerY + Math.sin(angleY-0.8) * range -100;
+			points[2].x = centerX + Math.sin(angleX+0.08) * range+100;
+			points[2].y = centerY + Math.sin(angleY+0.9) * range;
+			points[3].x = centerX + Math.sin(angleX-0.56) * range+150;
+			points[3].y = centerY + Math.sin(angleY-0.34) * range-100;
+			context.save();
+			context.translate(xspeed,yspeed);
+			context.rotate((-45+speed)*Math.PI/180);
+			
 
-			points[0].x = 200+50*Math.sin(angle);
-			points[0].y = 200+50*Math.cos(angle);
-			points[1].x = points[0].x +19*Math.sin(angle);
-			points[1].y = points[0].y +40*Math.sin(angle);
-			points[2].x = points[0].x +20*Math.sin(angle);
-			points[2].y = points[0].y +10*Math.sin(angle);
-			points[3].x = points[0].x +90*Math.sin(angle);
-			points[3].y = points[0].y +50*Math.sin(angle);
-			context.beginPath();
+			context.beginPath();	
 			context.moveTo(points[0].x,points[0].y);
 			context.strokeStyle="#fff";
-			context.fillStyle = 'rgba(255, 255, 255, 0.0001)'; 
+			context.fillStyle = 'rgba(255, 255, 255, 0.5)'; 
 			for(var i=1;i<numPoints-2;i++){
-				context.quadraticCurveTo(points[i].x,points[i].y,points[i+1].x,points[i+1].y);
+				ctrlPoint.x = (points[i].x + points[i+1].x)/2;
+		        ctrlPoint.y = (points[i].y + points[i+1].y)/2;
+				context.quadraticCurveTo(points[i].x,points[i].y,ctrlPoint.x,ctrlPoint.y);
 			}
+
 			context.quadraticCurveTo(points[i].x,points[i].y,points[i+1].x,points[i+1].y);
+				
 			context.stroke();
-			context.fill();
-			speed+=0.005;
-			angle-=0.005;
+			context.restore();
+			angleX += xspeed;
+			angleY += yspeed;
+			centerX +=0.5*Math.cos(angleX);
+			centerY +=0.5*Math.sin(angleY);
+			speed +=0.3;
+			
 		}());
 	};
   </script>
