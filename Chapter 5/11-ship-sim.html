@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>Ship Sim</title>
+  <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+  <canvas id="canvas" width="400" height="400" style="border:1px solid #c3c3c3;"></canvas>
+  <script src="utils.js"></script>
+  <script src="ship.js"></script>
+  <script>
+	window.onload = function(){
+		var canvas = document.getElementById('canvas'),
+		context = canvas.getContext('2d'),
+		ship = new Ship(),
+		vr = 0,
+		vx = 0,
+		vy = 0,
+		thrust = 0;
+			
+	ship.x = canvas.width/2;
+	ship.y = canvas.height/2;
+	
+	window.addEventListener('keydown',function(event){
+		switch(event.keyCode){
+		case 37:
+			vr = -3;
+			break;
+		case 39:
+			vr = 3;
+			break;
+		case 38:
+			thrust = 0.05;
+			ship.showFlame = true;
+			break;
+		}	
+	},false);
+	window.addEventListener('keyup',function(event){
+		vr = 0;
+		thrust = 0;
+		ship.showFlame = false;
+	},false);
+	(function drawFrame(){
+		window.requestAnimationFrame(drawFrame,canvas);
+		context.clearRect(0,0,canvas.width,canvas.height);	
+		
+		ship.rotation += vr*Math.PI/180;
+		var angle = ship.rotation,
+			ax = Math.cos(angle)*thrust,
+			ay = Math.sin(angle)*thrust;
+		
+		vx += ax;
+		vy += ay;
+		ship.x += vx;
+		ship.y += vy;
+		ship.draw(context);
+		}());
+	};
+  </script>
+ </body>
+</html>
