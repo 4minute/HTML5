@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>Homework of Chapter 5</title>
+  <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+  <canvas id="canvas" width="400" height="400" style="border:1px solid #c3c3c3;"></canvas>
+  <script src="utils.js"></script>
+  <script src="ball.js"></script>
+  <script>
+	window.onload = function(){
+		var canvas = document.getElementById('canvas'),
+		context = canvas.getContext('2d'),
+		balls = [],
+		ball = new Ball(),
+		ax = 0,
+		ay = 0.001,
+		vx = 0.01,
+		vy = -0.1;	
+	
+	ball.radius = 10;
+	ball.x = canvas.width/2;
+	ball.y = canvas.height/2;
+	
+	
+	for(var i=0;i<200;i++){
+		ball_i = new Ball();
+		ball_i.x = canvas.width/2;
+		ball_i.y = canvas.height/2;
+		ball_i.radius = (Math.random()+0.5)*10;
+		ball_i.vx = (Math.random()>0.5?1:-1)*(Math.random()*2);
+		ball_i.vy = (Math.random()>0.5?-1:1)*(Math.random()*2);
+		balls.push(ball_i);
+	}
+
+	(function drawFrame(){
+		window.requestAnimationFrame(drawFrame,canvas);
+		context.clearRect(0,0,canvas.width,canvas.height);
+	
+		for(var i=0;i<20;i++){
+			balls[i].draw(context);
+			balls[i].move(balls[i].vx);
+			if(balls[i].y > 400){
+				balls[i].x = canvas.width/2;
+				balls[i].y = canvas.height/2;
+				balls[i].vx = (Math.random()>0.5?1:-1)*(Math.random());
+				balls[i].vy = (Math.random()>0.5?-1:1);
+			}
+			
+		}
+		ball.draw(context);
+		}());
+	
+	};
+  </script>
+ </body>
+</html>
