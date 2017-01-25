@@ -1,8 +1,12 @@
 function Ball(radius,color){
 	if(radius === undefined){radius = 40;}
-	if(color === undefined){color = "#ff0000";}
+	if(color === undefined){color = "#000000";}
 	this.x = 0;
 	this.y = 0;
+	this.vx = 0;
+	this.vy = 0;
+	this.ax = 0;
+	this.ay = 0.1;
 	this.radius = radius;
 	this.rotation = 0;
 	this.scaleX = 1;
@@ -26,5 +30,10 @@ Ball.prototype.draw = function(context){
 		context.stroke();
 	}
 	context.restore();
+}
 
+Ball.prototype.move = function(vx){
+	this.vy += this.ay;
+	this.x += vx;
+	this.y += this.vy;
 }
