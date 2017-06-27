@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>Q3</title>
+ </head>
+ <body>
+  <canvas id="canvas" width="800" height="800"></canvas>
+  <script>
+	window.onload = function(){
+		var canvas = document.getElementById('canvas'),
+			context = canvas.getContext('2d'),
+			centerX = 100,
+			centerY = 200;
+		//顺时针45度旋转
+		context.save();
+		context.translate(centerX,centerY);
+		context.rotate(45*Math.PI/180);
+		context.moveTo(0,-40);
+		context.lineTo(-15,0);
+		context.lineTo(15,0);
+		context.lineTo(0,-40);
+		context.stroke();
+		context.restore();
+
+		centerX = 300;
+		centerY = 120;
+		//顺时针90度旋转
+		context.save();
+		context.translate(centerX,centerY);
+		context.rotate(90*Math.PI/180);
+		context.moveTo(0,-40);
+		context.lineTo(-15,0);
+		context.lineTo(15,0);
+		context.lineTo(0,-40);
+		context.stroke();
+		context.restore();
+
+		centerX = 500;
+		centerY = 500;
+		//顺时针180度旋转
+		context.save();
+		context.translate(centerX,centerY);
+		context.rotate(180*Math.PI/180);
+		context.moveTo(0,-40);
+		context.lineTo(-15,0);
+		context.lineTo(15,0);
+		context.lineTo(0,-40);
+		context.stroke();
+		context.restore();
+	};
+  </script>
+ </body>
+</html>

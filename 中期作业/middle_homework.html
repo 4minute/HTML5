@@ -12,7 +12,7 @@
       var cxt=document.getElementById('canvas').getContext("2d");
       var centerX=200;
       var centerY=200;
-      var lineWidth=350;
+      var lineWidth=400;
       var height=lineWidth*Math.sin(Math.PI/3);
       var hue=0.9;
       var satuation=0.9;
@@ -37,7 +37,10 @@
           // grd.addColorStop(0.75,"#00FFFF");
           // grd.addColorStop(1,"#FFFF00");
           // cxt.globalAlpha=1-i*0.009;
-          hue=Math.random();
+          hue=hue-1/30;
+          if(hue<=0){
+            hue=0.9;
+          }
           var color = hslToRgb(hue,satuation,light);
           console.log(color);
           /*rgb色系

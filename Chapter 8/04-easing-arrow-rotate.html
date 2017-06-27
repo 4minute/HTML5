@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Easing 1</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <script src="utils.js"></script>
+    <script src="arrow.js"></script>
+    <script>
+      window.onload = function(){
+        var canvas = document.getElementById('canvas'),
+            context = canvas.getContext('2d'),
+            arrow  = new Arrow(),
+            rotation = 90,
+            targetRotation = 270,
+            easing = 0.01;
+
+        arrow.x = 200,
+        arrow.y = 200,
+      (function drawFrame(){
+          window.requestAnimationFrame(drawFrame,canvas);
+          context.clearRect(0,0,canvas.width,canvas.height);
+
+          rotation += (targetRotation - rotation)*easing;
+          arrow.rotation = rotation*Math.PI/180;
+
+          arrow.draw(context);
+
+      }());
+    };
+    </script>
+  </body>
+</html>

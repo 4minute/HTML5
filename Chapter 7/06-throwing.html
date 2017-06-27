@@ -29,8 +29,8 @@
 	canvas.addEventListener('mousedown',function(){
 		if(utils.containsPoint(ball.getBounds(),mouse.x,mouse.y)){   
 			isMouseDown = true;
-			oldX=ball.x;
-			oldY=ball.y;
+			oldX=mouse.x;
+			oldY=mouse.y;
 			canvas.addEventListener('mouseup',onMouseUp,false);
 			canvas.addEventListener('mousemove',onMouseMove,false);
 		}
@@ -49,10 +49,10 @@
 	}
 	
 	function trackVelocity(){
-		vx = ball.x - oldX;
-		vy = ball.y - oldY;
-		oldX = ball.x;
-		oldY = ball.y;
+		vx = mouse.x - oldX;
+		vy = mouse.y - oldY;
+		oldX = mouse.x;
+		oldY = mouse.y;
 	}
 
 	function checkBoundaries(){

@@ -26,7 +26,8 @@
 		
 
 	canvas.addEventListener('mousedown',function(){
-		if(utils.containsPoint(ball.getBounds(),mouse.x,mouse.y)){   isMouseDown = true;
+		if(utils.containsPoint(ball.getBounds(),mouse.x,mouse.y)){   
+			isMouseDown = true;
 			canvas.addEventListener('mouseup',onMouseUp,false);
 			canvas.addEventListener('mousemove',onMouseMove,false);
 		}

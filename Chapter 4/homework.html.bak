@@ -61,7 +61,7 @@
 			
 			context.save();
 			context.translate(xspeed,yspeed);
-			context.rotate(speed);
+			context.rotate(speed/2);
 			
 			context.beginPath();	
 			context.moveTo(points[0].x,points[0].y);

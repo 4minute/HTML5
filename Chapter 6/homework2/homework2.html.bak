@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>homework2</title>
+  <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+  <canvas id="canvas" width="800" height="800"></canvas>
+  <script src="utils.js"></script>
+  <script>
+	window.onload = function(){
+		var canvas = document.getElementById('canvas'),
+			context = canvas.getContext('2d'),
+			mouse = utils.captureMouse(canvas),
+			distance = 40,
+			x=0,y=0,dx=0,dy=0,
+			ax,interval=20,friction=0.95,
+			vx = 0,
+			vy = 0;
+	
+	canvas.addEventListener('keydown',function(event){
+		if(event.keyCode===37){
+			ax = -0.1;
+		}else if(event.keyCode === 39){
+			ax = 0.1;
+		}
+		
+	},false);
+
+	canvas.addEventListener('keyup',function(){
+		ax = 0;	
+	},false);
+	
+
+	(function drawFrame(){
+		window.requestAnimationFrame(drawFrame,canvas);
+		context.clearRect(0,0,canvas.width,canvas.height);
+		
+	//	context.beginPath();
+	//	context.moveTo(0,300);
+	//	context.lineTo(canvas.width,300);
+	//	context.stroke();
+	//	context.closePath();
+
+		context.beginPath();
+		context.moveTo(0,300)
+		context.lineTo(canvas.width,300)
+		context.stroke();
+		context.closePath();
+
+		
+		dx = x%distance;
+		for (var i=0; dx + i*distance<=canvas.width;i++ )
+		{
+			context.beginPath();
+			context.moveTo(dx+i*distance+1,293)
+			context.lineTo(dx+i*distance+1,307)
+			context.stroke()
+			context.closePath();
+		}
+
+		
+		start_num = Math.floor(-x/interval)
+		for (var i = start_num;i*distance<=canvas.width+(-x);i++){
+			context.fillText(i.toString(),i*distance+x,canvas.height/2+interval)
+		}
+		
+		vx += ax;
+		vx *= friction;
+		x += vx;
+	}());
+	
+	};
+  </script>
+ </body>
+</html>

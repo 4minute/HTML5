@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>Throwing</title>
+  <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <script src="utils.js"></script>
+  <script src="ball.js"></script>
+  <script>
+	window.onload = function(){
+		var canvas = document.getElementById('canvas'),
+			context = canvas.getContext('2d'),
+			mouse = utils.captureMouse(canvas),
+			balls = [],
+			ball = new Ball(),
+			numBalls = 10,
+			vx = 0,
+			vy = 0,
+			x = 0,
+			y = 0,
+			bounce = 1,
+			gravity = 1,
+			distance = 40,
+			oldX,oldY,
+			isMouseDown = false;
+			
+	
+	canvas.addEventListener('mousedown',function(){
+		   
+			oldX = mouse.x;
+			oldY = mouse.y;
+
+			canvas.addEventListener('mouseup',onMouseUp,false);
+			canvas.addEventListener('mousemove',onMouseMove,false);
+		
+	},false);
+
+	function onMouseUp(){
+		canvas.removeEventListener('mouseup',onMouseUp,false);
+		canvas.removeEventListener('mousemove',onMouseMove,false);
+	}
+	
+	function onMouseMove(){
+		vx = mouse.x-oldX;
+		vy = mouse.y-oldY;
+		oldX = mouse.x;
+		oldY = mouse.y;
+
+		x += vx;
+		y += vy;
+		//球的位移需要累积
+		for (var i = balls.length - 1; i >= 0; i -= 1) {
+			balls[i].x += vx;
+			balls[i].y += vy;
+		}
+		
+	}
+
+	for(var ball,i=0;i<numBalls;i++){
+		ball = new Ball(20);
+		ball.x = Math.random()*canvas.width;
+		ball.y = Math.random()*canvas.height;
+		ball.radius = Math.random()*15+15;
+		ball.vx = 0;
+		ball.vy = 0;
+		balls.push(ball);
+	}
+	/*function draw(ball,pos){
+		ball.x += ball.vx;
+		ball.y += ball.vy;
+		if(ball.x - ball.radius>canvas.width||
+		   ball.x + ball.radius<0||
+		   ball.y - ball.radius>canvas.height||
+		   ball.y + ball.radius<0){
+           balls.splice(pos,1);
+		 
+		  }
+		  ball.draw(context);
+	}*/
+
+	(function drawFrame(){
+		window.requestAnimationFrame(drawFrame,canvas);
+		context.clearRect(0,0,canvas.width,canvas.height);
+		//线的位移需要小步累加
+		dx = x%distance;
+		dy = y%distance;
+		context.beginPath()
+		for (var i=0; dx + i*distance<canvas.width;i++ )
+		{
+
+		context.moveTo(dx + i*distance,0)
+		context.lineTo(dx + i*distance,canvas.height)
+		}
+
+		for (var i=0; dy + i*distance<canvas.height;i++ )
+		{
+
+		context.moveTo(0,dy + i*distance)
+		context.lineTo(canvas.width,dy + i*distance)
+		}
+
+		context.stroke()
+		context.closePath();
+
+		for (var i = balls.length - 1; i >= 0; i -= 1) {
+			balls[i].draw(context);
+		}
+		
+
+		
+	}());
+	
+
+	};
+  </script>
+ </body>
+</html>

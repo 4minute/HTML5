@@ -1,8 +1,8 @@
 body{
-	background-color:#fff;
+	background-color:#bbb;
 }
 #canvas{
-	background-color:#fff;
+	background-color:#000;
 	display:block;
 	margin:0 auto;
 }

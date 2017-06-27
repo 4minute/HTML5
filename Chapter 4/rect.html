@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>Draw Rect</title>
+ </head>
+ <body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <script>
+	window.onload = function(){
+		var canvas = document.getElementById('canvas'),
+			context = canvas.getContext('2d');
+			
+	/*	context.strokeStyle="red";
+		context.fillStyle='rgba(0,0,255,0.5)';
+		context.strokeRect(50,80,200,100);
+		context.fillRect(50,80,100,50);	
+		context.fillRect(50,80,200,100);
+		context.stroke();*/
+		
+
+		context.strokeStyle="red";
+		context.fillStyle='rgba(0,0,255,0.5)';
+		context.save();
+		context.translate(50,80);
+
+		context.beginPath();
+		context.rect(0,0,200,100);	
+		context.stroke();
+		context.fill();
+		context.restore();
+
+		context.beginPath();
+		context.rect(0,0,200,100);	
+		context.stroke();
+		context.fill();
+	
+	};
+  </script>
+ </body>
+</html>

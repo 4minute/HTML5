@@ -39,7 +39,7 @@
 		window.requestAnimationFrame(drawFrame,canvas);
 		context.clearRect(0,0,canvas.width,canvas.height);
 	
-		for(var i=0;i<30;i++){
+		for(var i=0;i<20;i++){
 			balls[i].draw(context);
 			balls[i].move(balls[i].vx);
 			if(balls[i].y > 400){

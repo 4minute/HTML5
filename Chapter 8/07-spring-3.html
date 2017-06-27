@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Spring 3</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <script src="utils.js"></script>
+    <script src="ball.js"></script>
+    <script>
+      window.onload = function(){
+        var canvas = document.getElementById('canvas'),
+            context = canvas.getContext('2d'),
+            ball = new Ball(),
+            mouse = utils.captureMouse(canvas),
+            spring = 0.03,
+            fricton = 0.95,
+            targetX = canvas.width/2,
+            targetY = canvas.height/2,
+            vx = 50,
+            vy = 0;
+
+
+        (function drawFrame(){
+          window.requestAnimationFrame(drawFrame,canvas);
+          context.clearRect(0,0,canvas.width,canvas.height);
+
+          // var dx = targetX - ball.x,
+          //     dy = targetY - ball.y,
+              var dx = mouse.x - ball.x,
+                  dy = mouse.y - ball.y,
+                  ax = dx*spring,
+                  ay = dy*spring;
+
+          vx += ax;
+          vy += ay;
+          vx *= fricton;
+          vy *= fricton;
+          ball.x += vx;
+          ball.y += vy;
+          ball.draw(context);
+        }());
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>homework2</title>
+  <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+  <canvas id="canvas" width="800" height="800"></canvas>
+  <script src="utils.js"></script>
+  <script>
+	window.onload = function(){
+		var canvas = document.getElementById('canvas'),
+			context = canvas.getContext('2d'),
+			interval = 40,
+                    vx = 0,
+                    x_position = 0,
+                    ax = 0,
+                    friction = 0.95
+                    scale_length = 20;
+
+            window.addEventListener('keydown',function(event){
+                if(event.keyCode === 37){ax = -1}
+                else if(event.keyCode === 39){ax = 1}
+            },false);
+
+            window.addEventListener('keyup',function(){
+                ax = 0
+            },false);
+
+            (function drawFrame(){
+                window.requestAnimationFrame(drawFrame,canvas);
+                context.clearRect(0,0,canvas.width,canvas.height);
+                context.beginPath();
+                context.moveTo(0,canvas.height/2);
+                context.lineTo(canvas.width,canvas.height/2);
+                context.stroke();
+                context.closePath();
+
+                dx = x_position%interval
+
+                for (var i = 0;i*interval+dx<=canvas.width;i++){
+                    context.beginPath();
+                    context.moveTo(i*interval+dx,canvas.height/2-scale_length/2);
+                    context.lineTo(i*interval+dx,canvas.height/2+scale_length/2);
+                    context.stroke();
+                    context.closePath();
+                }
+
+                start_num = Math.floor(-x_position/interval)
+                for (var i = start_num;i*interval<=canvas.width+(-x_position);i++){
+                    context.fillText(i.toString(),i*interval+x_position,canvas.height/2+scale_length)
+                }
+                vx += ax
+                vx *= friction
+                x_position += vx
+            }())
+                    
+            
+	};
+  </script>
+ </body>
+</html>
