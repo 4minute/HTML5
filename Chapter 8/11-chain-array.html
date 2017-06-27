@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Chain</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <script src="utils.js"></script>
+    <script src="ball.js"></script>
+    <script>
+      window.onload = function(){
+        var canvas = document.getElementById('canvas'),
+            context = canvas.getContext('2d'),
+            mouse = utils.captureMouse(canvas),
+            spring = 0.05,
+            friction = 0.7,
+            gravity = 2;
+
+      var balls = [],
+          numBalls = 5;
+
+      while(numBalls--){
+        balls.push(new Ball(20));
+      }
+
+      function draw(ballB,i){
+        if(i===0){
+          move(ballB,mouse.x,mouse.y);
+          context.moveTo(mouse.x,mouse.y);
+        }else {
+          var ballA = balls[i-1];
+          move(ballB,ballA.x,ballA.y);
+          context.moveTo(ballA.x,ballA.y);
+        }
+        context.lineTo(ballB.x,ballB.y);
+        context.stroke();
+        ballB.draw(context);
+
+      }
+
+      function move(ball,targetX,targetY){
+        ball.vx += (targetX - ball.x) * spring;
+        ball.vy += (targetY - ball.y) * spring;
+        ball.vy += gravity;
+        ball.vx *= friction;
+        ball.vy *= friction;
+        ball.x += ball.vx;
+        ball.y += ball.vy;
+      }
+
+      (function drawFrame(){
+        window.requestAnimationFrame(drawFrame,canvas);
+        context.clearRect(0,0,canvas.width,canvas.height);
+
+        context.beginPath();
+        balls.forEach(draw);
+
+      }());
+    };
+    </script>
+  </body>
+</html>
