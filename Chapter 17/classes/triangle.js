@@ -81,5 +81,5 @@ Triangle.prototype.getLightFactor = function(){
 
   var lightMag = Math.sqrt(this.light.x*this.light.x+this.light.y*this.light.y+this.light.z*this.light.z);
 
-  return (Math.acos(dotProd/(normMag*ligthMag)/Math.PI)*this.light.brightness);
+  return (Math.acos(dotProd/(normMag*lightMag)/Math.PI)*this.light.brightness);
 }
